@@ -1,0 +1,71 @@
+﻿<Window x:Class="Test_Assignment.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Test_Assignment"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+
+
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Height="20" MinWidth="100" Click="Find_Coin_Btn">
+                Find coin
+            </Button>
+            <Button Height="20" MinWidth="100">
+                Text
+            </Button>
+        </StackPanel>
+
+
+        <TabControl x:Name="Tabs" Grid.Row="1">
+
+            <TabItem x:Name="Tab" Header="Main">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" >
+                        <Button Height="30" Click="Button_Click">Find Coins</Button>
+                        <TextBox  x:Name="Count_coin" PreviewTextInput="TextBox_PreviewTextInput" Height="30" MinWidth="100">
+                        </TextBox>
+                        <Label >Enter the amount of coins neded</Label>
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        
+                        <DataGrid  Background="white" VerticalAlignment="Top" x:Name="TirstTenCoins" IsReadOnly="True" 
+                              ScrollViewer.CanContentScroll="True" 
+		                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+		                      ScrollViewer.HorizontalScrollBarVisibility="Auto"  GridLinesVisibility="None"
+                              AlternatingRowBackground="White"  RowBackground="DarkGray"
+                              HorizontalAlignment="Center">
+
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Click="Button_Click_1">
+                                            More Information
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            
+        </TabControl>
+
+    </Grid>
+</Window>
