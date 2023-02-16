@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Test_Assignment.Model
 {
-    class CoinFromCoincap:Coin
+    public class CoinFromCoincap:Coin
     {
         public int Rank { get; set; }
 
@@ -15,13 +15,14 @@ namespace Test_Assignment.Model
 
         public override string Symbol { get; set; }
 
-        public decimal? Supply { get; set; }
-        public decimal? MaxSupply { get; set; }
-        public decimal? MarketCapUsd { get; set; }
+        public string? Supply { get; set; }
+        public string? MaxSupply { get; set; }
+        public string? MarketCapUsd { get; set; }
 
-        public decimal? VolumeUsd24Hr { get; set; }
-        public decimal? PriceUsd { get; set; }
-        public decimal? ChangePercent24Hr { get; set; }
-        public decimal? Vwap24Hr { get;set; }
+        public string? VolumeUsd24Hr { get; set; }
+        public string? PriceUsd { get; set; }
+        public string? ChangePercent24Hr { get; set; }
+        public string? Vwap24Hr { get;set; }
+
     }
 }

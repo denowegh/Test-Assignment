@@ -30,7 +30,6 @@ namespace Test_Assignment
         public MainWindow()
         {
             InitializeComponent();
-            SetCoins();
         }
 
         
@@ -61,34 +60,6 @@ namespace Test_Assignment
             _ = Tabs.Items.Add(newTabItem);
         }
 
-        private void SetCoins(int N = 100)
-        {
-
-            WebRequest request = WebRequest.Create($"https://api.coincap.io/v2/assets?limit={N}");
-            request.Credentials = CredentialCache.DefaultCredentials;
-
-            using (var response = (HttpWebResponse)request.GetResponse())
-            {
-
-
-                using (Stream dataStream = response.GetResponseStream())
-                {
-                    using (var reader = new StreamReader(dataStream))
-                    {
-
-                        string responseFromServer = reader.ReadToEnd();
-                        
-                        var resp = JsonConvert.DeserializeObject<RequestCoin<CoinFromCoincap>>(responseFromServer);
-                        TirstTenCoins.ItemsSource = resp.Data;
-                    }
-                }
-            }
-
-
-        }
-
-
-
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
@@ -97,14 +68,6 @@ namespace Test_Assignment
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            SetCoins(int.Parse( Count_coin.Text));
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }

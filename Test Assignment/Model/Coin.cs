@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Test_Assignment.Model
 {
-    abstract class  Coin
+    public abstract class  Coin
     {
         public  abstract string Id { get; set; }
 

@@ -8,7 +8,8 @@ namespace Test_Assignment.Model
 {
     class RequestCoin<T>
     {
-        public List<T> Data { get; set; }
+        public IEnumerable<T> Data { get; set; }
         public double Timestamp { get; set; }
+        
     }
 }
