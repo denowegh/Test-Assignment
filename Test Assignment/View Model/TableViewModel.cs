@@ -5,12 +5,16 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using Test_Assignment.Commands;
 using Test_Assignment.Model;
-
 namespace Test_Assignment.View_Model
 {
     public enum Parameters
@@ -24,8 +28,8 @@ namespace Test_Assignment.View_Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
         
-        public ICommand RequestCoins { get; set; }
         public ICommand FilterCommand { get; set; }
+        public IAsyncCommand  Request { get; set; }
         public ICommand ResetCoinsFromCoinsForFilter { get; set; }
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
@@ -37,11 +41,16 @@ namespace Test_Assignment.View_Model
         
         public IEnumerable<CoinFromCoincap> Coins
         {
-            get { return coins; }
+            get 
+            {
+                return coins; 
+            }
             set
             {
+                
                 coins = value;
                 OnPropertyChanged();
+                Loading = false;
             }
         }
         private string n = "10";
@@ -66,35 +75,40 @@ namespace Test_Assignment.View_Model
                 OnPropertyChanged();
             }
         }
-        private string filterValue;
+        public string FilterValue { get; set; }
+        private bool _loading = false;
 
-        public string FilterValue
+        public bool Loading
         {
-            get { return filterValue; }
-            set { filterValue = value; }
+            get { return _loading; }
+            set { 
+                _loading = value;
+                OnPropertyChanged();
+            }
         }
 
 
 
         public MainViewModel()
         {
-            GetCoins();
-
-            RequestCoins = new MainCommands(RequestCoin);
+            
             FilterCommand = new MainCommands(Filter);
             ResetCoinsFromCoinsForFilter = new MainCommands(Reset);
+            Request = new MainAsyncCommand(async () =>
+            {
+                coinsForFilter = Coins = (await GetCoins())?.Data;
+            });
         }
-        private void RequestCoin(object value)
-        {
-            GetCoins();
-        }
+        
         private void Reset(object value)
         {
-            if(coinsForFilter != null)
+            Loading = true;
+            if (coinsForFilter != null)
                 Coins = coinsForFilter;
         }
-        private async void Filter(object value)
+        private void Filter(object value)
         {
+            Loading = true;
             if (string.IsNullOrEmpty(FilterValue))
             {
                 Coins = coinsForFilter;
@@ -102,83 +116,62 @@ namespace Test_Assignment.View_Model
             }
             else
             {
-                if(coinsForFilter == null)
+                if (coinsForFilter == null)
                     coinsForFilter = Coins;
             }
 
-            List<CoinFromCoincap> newListCoins = new List<CoinFromCoincap>();
+            IEnumerable<CoinFromCoincap> newListCoins;
             switch (parameters)
             {
                 case Parameters.Rank:
-                    if (int.TryParse(filterValue, out int num))
+                    if (int.TryParse(FilterValue, out int num))
                     {
-                        foreach (var coin in this.coins)
-                        {
-                            if (coin.Rank == num)
-                            {
-                                newListCoins.Add(coin);
-                                break;
-                            }
-                        }
+                        newListCoins = coins.Where((coin) => (coin.Rank == num));
                         Coins = newListCoins;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Enter Number!!");
                     }
                     break;
                 case Parameters.Name:
-                    foreach (var coin in this.coins)
-                    {
-                        if (coin.Name.Contains(FilterValue))
-                        {
-                            newListCoins.Add(coin);
-                            return;
-                        }
-                    }
+                    newListCoins = coins.Where((coin) => coin.Name.Contains(FilterValue));
                     Coins = newListCoins;
                     break;
                 case Parameters.Id:
-                    foreach (var coin in this.coins)
-                    {
-                        if (coin.Id.Contains(FilterValue))
-                        {
-                            newListCoins.Add(coin);
-                            return;
-                        }
-                    }
+                    newListCoins = coins.Where((coin) => coin.Id.Contains(FilterValue));
                     Coins = newListCoins;
                     break;
                 case Parameters.Symbol:
-                    foreach (var coin in this.coins)
-                    {
-                        if ( coin.Symbol.Contains(FilterValue))
-                        {
-                            newListCoins.Add(coin);
-                            return;
-                        }
-                    }
+                    newListCoins = coins.Where((coin) => coin.Symbol.Contains(FilterValue));
                     Coins = newListCoins;
                     break;
             }
         }
 
-        private async void GetCoins()
+        private async Task<RequestCoin<CoinFromCoincap>?> GetCoins()
         {
+            Loading = true;
             N = (string.IsNullOrEmpty(n)) ? "0" : N;
-            WebRequest request = WebRequest.Create($"https://api.coincap.io/v2/assets?limit={int.Parse(N)}");
-            request.Credentials = CredentialCache.DefaultCredentials;
-
-            using (var response = await request.GetResponseAsync() as HttpWebResponse)
+            if (int.Parse(N) > 2000)
             {
-                using (Stream dataStream =  response.GetResponseStream())
-                {
-                    using (var reader =  new StreamReader(dataStream))
-                    {
-
-                        string responseFromServer = reader.ReadToEnd();
-                        
-                        var resp = JsonConvert.DeserializeObject<RequestCoin<CoinFromCoincap>>(responseFromServer);
-                        Coins =  resp.Data;
-                    }
-                }
+                MessageBox.Show($"Enter number less 2001");
+                return null;
             }
+            try
+            { 
+                using (HttpClient client = new HttpClient())
+                    return (await client.GetFromJsonAsync<RequestCoin<CoinFromCoincap>>($"https://api.coincap.io/v2/assets?limit={int.Parse(N)}"));
+                
+                
+            }
+            catch (HttpRequestException e)
+            {
+                MessageBox.Show($"Message:{e.Message}");
+                return null;
+            }
+
+
         }
 
     }

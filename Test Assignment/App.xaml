@@ -2,15 +2,20 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Test_Assignment"
+             xmlns:view_model="clr-namespace:Test_Assignment.View_Model"
+             xmlns:en="clr-namespace:Test_Assignment.View_Model"
              StartupUri="MainWindow.xaml">
+
     <Application.Resources>
 
-        
 
 
-        
-        
-                
-        
+
+
+
+
+
+
+
     </Application.Resources>
 </Application>

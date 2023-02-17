@@ -37,7 +37,7 @@ namespace Test_Assignment
         private void Delete(object sender, RoutedEventArgs e)
         {
             var target = (FrameworkElement)sender;
-            while (target is TabItem == false)
+            while (target is TabItem==false)
                 target = (FrameworkElement)target.Parent;
             
             Tabs.Items.Remove(target);

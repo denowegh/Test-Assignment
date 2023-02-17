@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Test_Assignment" xmlns:view_model="clr-namespace:Test_Assignment.View_Model"
-        
+        xmlns:local="clr-namespace:Test_Assignment" 
+        xmlns:view_model="clr-namespace:Test_Assignment.View_Model"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:en="clr-namespace:Test_Assignment.View_Model"
         mc:Ignorable="d"
@@ -20,6 +20,9 @@
                 <x:Type TypeName="en:Parameters"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        
+
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -51,12 +54,13 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" >
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal"  >
                         <TextBlock Width="170" FontSize="10">
                             Enter the amount of coins neded
                             (first<LineBreak/> N coins oredered by Rank)
                         </TextBlock>
-                        <Button  Height="30" Margin="3,0,3,0" Command="{Binding RequestCoins}">Find first N coins</Button>
+                        <Button  Height="30" Margin="3,0,3,0" Command="{Binding Request}">Find first N coins</Button>
+                        <TextBlock Visibility="{Binding Loading, Converter={StaticResource BoolToVisibilityConverter}}" Text="Load"/>
                         <TextBox Margin="3,0,3,0" Padding="5,5,5,5" x:Name="Count_coin" PreviewTextInput="TextBox_PreviewTextInput" Text="{Binding N}" Height="30" MinWidth="100"/>
 
                         <Separator Margin="3,0,3,0">
@@ -83,26 +87,27 @@
                     </StackPanel>
                     <Grid Grid.Row="1" Grid.Column="0">
                         <DataGrid  Background="white" VerticalAlignment="Top" x:Name="TirstTenCoins" IsReadOnly="True" 
-                              ScrollViewer.CanContentScroll="False"  BorderThickness="0"
+                                BorderThickness="0"
 		                      ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserAddRows="False"
                               CanUserDeleteRows="False" CanUserResizeColumns="True" RowHeaderWidth="0"
-                              HorizontalAlignment="Stretch"
+                              HorizontalAlignment="Stretch" SelectionMode="Single"
 		                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" GridLinesVisibility="None"
                               AlternatingRowBackground="White"  RowBackground="DarkGray"
-                              ItemsSource="{Binding Coins}" AutoGenerateColumns="False" ColumnWidth="*" 
+                              ItemsSource="{Binding Coins,IsAsync=True}" AutoGenerateColumns="False" ColumnWidth="*" 
                                      >
                             <DataGrid.Columns >
-                                <DataGridTextColumn Header="Id" Binding="{Binding  Id}" />
-                                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                                <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" />
-                                <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" />
-                                <DataGridTextColumn Header="Supply" Binding="{Binding Supply}" />
-                                <DataGridTextColumn Header="Marketcap Usd" Binding="{Binding MarketCapUsd}"/>
-                                <DataGridTextColumn Header="Price Usd" Binding="{Binding PriceUsd}" />
+                                <DataGridTextColumn Header="Id" Binding="{Binding  Id,IsAsync=True}" />
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name,IsAsync=True}" />
+                                <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol,IsAsync=True}" />
+                                <DataGridTextColumn Header="Rank" Binding="{Binding Rank,IsAsync=True}" />
+                                <DataGridTextColumn Header="Supply" Binding="{Binding Supply,IsAsync=True}" />
+                                <DataGridTextColumn Header="Marketcap Usd" Binding="{Binding MarketCapUsd,IsAsync=True}"/>
+                                <DataGridTextColumn Header="Price Usd" Binding="{Binding PriceUsd,IsAsync=True}" />
                             </DataGrid.Columns>
                             <DataGrid.RowDetailsTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Vertical" Background="DarkGray">
+                                <DataTemplate >
+                                    <ScrollViewer Height="350" CanContentScroll="True">
+                                        <StackPanel Orientation="Vertical" Background="DarkGray" >
 
                                         <StackPanel Orientation="Vertical"  Margin="2,2,2,2">
 
@@ -222,6 +227,7 @@
                                         </StackPanel>
 
                                     </StackPanel>
+                                    </ScrollViewer>
                                 </DataTemplate>
                             </DataGrid.RowDetailsTemplate>
                         </DataGrid>
