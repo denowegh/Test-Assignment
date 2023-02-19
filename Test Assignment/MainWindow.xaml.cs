@@ -19,6 +19,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Test_Assignment.Model;
 using System.Data;
+using Test_Assignment.View_Model;
 
 namespace Test_Assignment
 {
@@ -27,9 +28,11 @@ namespace Test_Assignment
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         
@@ -39,34 +42,29 @@ namespace Test_Assignment
             var target = (FrameworkElement)sender;
             while (target is TabItem==false)
                 target = (FrameworkElement)target.Parent;
-            
             Tabs.Items.Remove(target);
-
-
         }
 
         private void Find_Coin_Btn(object sender, RoutedEventArgs e)
         {
-
-
-
-
+            var btn = new Button();
+            btn.Content = "Del";
+            btn.Click+= new RoutedEventHandler(Delete);
+            Binding binding = new Binding("MainViewModel.TableViewModel");
+           
+            binding.Source = DataContext;
             TabItem newTabItem = new TabItem
             {
                 Header = "Test",
                 Name = "Test",
+                
 
             };
+            newTabItem.SetBinding(TabItem.ContentProperty,binding);
             _ = Tabs.Items.Add(newTabItem);
         }
 
 
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            var regex = new Regex("[^0-9]+");
-
-            e.Handled = regex.IsMatch(e.Text);
-        }
 
         
     }

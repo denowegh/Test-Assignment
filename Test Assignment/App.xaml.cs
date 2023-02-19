@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Test_Assignment
 {
@@ -14,15 +16,12 @@ namespace Test_Assignment
     /// </summary>
     public partial class App : Application
     {
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            var regex = new Regex("[^0-9]+");
 
-
-
-            var target = (FrameworkElement)sender;
-            while (target is TabItem == false)
-                target = (FrameworkElement)target.Parent;
-            (target.Parent as TabControl).Items.Remove(target);
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

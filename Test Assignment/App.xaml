@@ -4,13 +4,210 @@
              xmlns:local="clr-namespace:Test_Assignment"
              xmlns:view_model="clr-namespace:Test_Assignment.View_Model"
              xmlns:en="clr-namespace:Test_Assignment.View_Model"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="MainWindow.xaml">
 
     <Application.Resources>
 
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="en:Parameters"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
 
+        <DataTemplate x:Key="Main">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal"  >
+                    <TextBlock Width="170" FontSize="10">
+                            Enter the amount of coins neded
+                            (first<LineBreak/> N coins oredered by Rank)
+                    </TextBlock>
+                    <Button  Height="30" Margin="3,0,3,0" Command="{Binding Request}">Find first N coins</Button>
+                    <TextBlock Visibility="{Binding Loading, Converter={StaticResource BoolToVisibilityConverter}}" Text="Load"/>
+                    <TextBox Margin="3,0,3,0" Padding="5,5,5,5" x:Name="Count_coin" PreviewTextInput="TextBox_PreviewTextInput" Text="{Binding N}" Height="30" MinWidth="100"/>
+
+                    <Separator Margin="3,0,3,0">
+                        <Separator.LayoutTransform>
+                            <RotateTransform Angle="90" />
+                        </Separator.LayoutTransform>
+                    </Separator>
+                    <TextBlock Margin="0,0,0,3" FontSize="10">
+                            Search in the
+                            <LineBreak/> list by parametr:
+                    </TextBlock>
+                    <TextBox Margin="3,0,3,0"   Padding="5,5,5,5" x:Name="Filter"
+                                 Text="{Binding FilterValue}" Height="30" MinWidth="100">
+
+                    </TextBox>
+                    <Button Height="30" Margin="3,0,3,0" Command="{Binding FilterCommand}">
+                        Search
+                    </Button>
+
+                    <ComboBox ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedValue="{Binding Parameters}"/>
+                    <Button Height="30" Margin="3,0,3,0" Command="{Binding ResetCoinsFromCoinsForFilter}">
+                        Reset
+                    </Button>
+                </StackPanel>
+                <Grid Grid.Row="1" Grid.Column="0">
+                    <DataGrid  Background="white" VerticalAlignment="Top" x:Name="TirstTenCoins" IsReadOnly="True" 
+                                BorderThickness="0"
+		                      ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserAddRows="False"
+                              CanUserDeleteRows="False" CanUserResizeColumns="True" RowHeaderWidth="0"
+                              HorizontalAlignment="Stretch" SelectionMode="Single"
+		                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" GridLinesVisibility="None"
+                              AlternatingRowBackground="White"  RowBackground="DarkGray"
+                              ItemsSource="{Binding Coins,IsAsync=True}" AutoGenerateColumns="False" ColumnWidth="*" 
+                                     >
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Header="Id" Binding="{Binding  Id,IsAsync=True}" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name,IsAsync=True}" />
+                            <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol,IsAsync=True}" />
+                            <DataGridTextColumn Header="Rank" Binding="{Binding Rank,IsAsync=True}" />
+                            <DataGridTextColumn Header="Supply" Binding="{Binding Supply,IsAsync=True}" />
+                            <DataGridTextColumn Header="Marketcap Usd" Binding="{Binding MarketCapUsd,IsAsync=True}"/>
+                            <DataGridTextColumn Header="Price Usd" Binding="{Binding PriceUsd,IsAsync=True}" />
+                        </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate >
+                                <ScrollViewer Height="350" CanContentScroll="True">
+                                    <StackPanel Orientation="Vertical" Background="DarkGray" >
+
+                                        <StackPanel Orientation="Vertical"  Margin="2,2,2,2">
+
+                                            <Label FontSize="14">Name:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Name}"/>
+                                            <Label FontSize="14">Description:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14">
+                                                Proper name for asset
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <Line Stretch="Fill" Stroke="Black" X2="2"/>
+                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+
+                                            <Label FontSize="14">Id:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Id}"/>
+                                            <Label FontSize="14">Description:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14">
+                                                Unique identifier for asset
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <Line Stretch="Fill" Stroke="Black" X2="2"/>
+                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+
+                                            <Label FontSize="14">Symbol:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Symbol}"/>
+                                            <Label FontSize="14">Description:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14">
+                                                Most common symbol used to identify <LineBreak/>
+                                                this asset on an exchange
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <Line Stretch="Fill" Stroke="Black" X2="2"/>
+                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+
+                                            <Label FontSize="14">Rank:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Rank}"/>
+                                            <Label FontSize="14" >Description:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" >
+                                                Rank is in ascending order - this number is <LineBreak/>
+                                                directly associated with the marketcap whereas the <LineBreak/>
+                                                highest marketcap receives rank 1
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <Line Stretch="Fill" Stroke="Black" X2="2"/>
+                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+
+                                            <Label FontSize="14">Supply:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Supply}"/>
+                                            <Label FontSize="14">Description:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14">
+                                                Available supply for trading
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <Line Stretch="Fill" Stroke="Black" X2="2"/>
+                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+
+                                            <Label FontSize="14">Max supply:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding MaxSupply}"/>
+                                            <Label FontSize="14">Description:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14">
+                                                Total quantity of asset issued
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <Line Stretch="Fill" Stroke="Black" X2="2"/>
+                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+
+                                            <Label FontSize="14">Marketcap usd:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding MarketCapUsd}"/>
+                                            <Label FontSize="14">Description:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14">
+                                                Supply x price
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <Line Stretch="Fill" Stroke="Black" X2="2"/>
+                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+
+                                            <Label FontSize="14">Volume usd 24Hr:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding VolumeUsd24Hr}"/>
+                                            <Label FontSize="14">Description:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14">
+                                                Quantity of trading volume represented <LineBreak/>
+                                                in USD over the last 24 hours
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <Line Stretch="Fill" Stroke="Black" X2="2"/>
+                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+
+                                            <Label FontSize="14">Price usd:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding PriceUsd}"/>
+                                            <Label FontSize="14">Description:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" >
+                                                Volume-weighted price based on real-time<LineBreak/>
+                                                market data, translated to USD
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <Line Stretch="Fill" Stroke="Black" X2="2"/>
+                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+
+                                            <Label FontSize="14">Change percent 24Hr:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding changePercent24Hr}"/>
+                                            <Label FontSize="14">Description:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14">
+                                                The direction and value change<LineBreak/>
+                                                in the last 24 hours
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <Line Stretch="Fill" Stroke="Black" X2="2"/>
+                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+
+                                            <Label FontSize="14">Vwap 24Hr:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Vwap24Hr}" />
+                                            <Label FontSize="14" >Description:</Label>
+                                            <TextBlock Margin="10,0,0,0" FontSize="14" >
+                                                Volume Weighted Average Price <LineBreak/>
+                                                in the last 24 hours
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+        </DataTemplate>
 
 
 

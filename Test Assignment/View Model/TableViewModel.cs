@@ -24,7 +24,7 @@ namespace Test_Assignment.View_Model
         Id,
         Symbol,
     }
-    public class MainViewModel : INotifyPropertyChanged
+    public class TableViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         
@@ -89,7 +89,7 @@ namespace Test_Assignment.View_Model
 
 
 
-        public MainViewModel()
+        public TableViewModel()
         {
             
             FilterCommand = new MainCommands(Filter);
