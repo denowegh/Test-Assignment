@@ -37,35 +37,9 @@ namespace Test_Assignment
 
         
 
-        private void Delete(object sender, RoutedEventArgs e)
-        {
-            var target = (FrameworkElement)sender;
-            while (target is TabItem==false)
-                target = (FrameworkElement)target.Parent;
-            Tabs.Items.Remove(target);
-        }
-
-        private void Find_Coin_Btn(object sender, RoutedEventArgs e)
-        {
-            var btn = new Button();
-            btn.Content = "Del";
-            btn.Click+= new RoutedEventHandler(Delete);
-            Binding binding = new Binding("MainViewModel.TableViewModel");
-           
-            binding.Source = DataContext;
-            TabItem newTabItem = new TabItem
-            {
-                Header = "Test",
-                Name = "Test",
-                
-
-            };
-            newTabItem.SetBinding(TabItem.ContentProperty,binding);
-            _ = Tabs.Items.Add(newTabItem);
-        }
-
-
-
         
+
+
+
     }
 }

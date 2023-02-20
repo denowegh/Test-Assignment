@@ -17,6 +17,7 @@ using Test_Assignment.Commands;
 using Test_Assignment.Model;
 namespace Test_Assignment.View_Model
 {
+
     public enum Parameters
     {
         Rank,
@@ -24,10 +25,11 @@ namespace Test_Assignment.View_Model
         Id,
         Symbol,
     }
-    public class TableViewModel : INotifyPropertyChanged
+
+public class TableViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
         public ICommand FilterCommand { get; set; }
         public IAsyncCommand  Request { get; set; }
         public ICommand ResetCoinsFromCoinsForFilter { get; set; }
@@ -35,7 +37,6 @@ namespace Test_Assignment.View_Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
-
         private IEnumerable<CoinFromCoincap> coinsForFilter;
         private IEnumerable<CoinFromCoincap> coins;
         
@@ -92,14 +93,18 @@ namespace Test_Assignment.View_Model
         public TableViewModel()
         {
             
-            FilterCommand = new MainCommands(Filter);
+            FilterCommand = new MainCommands(Filter,()=>!string.IsNullOrEmpty(FilterValue));
             ResetCoinsFromCoinsForFilter = new MainCommands(Reset);
+
             Request = new MainAsyncCommand(async () =>
             {
                 coinsForFilter = Coins = (await GetCoins())?.Data;
-            });
+            }, () => !string.IsNullOrEmpty(N));
+            Request.ExecuteAsync();
         }
         
+        
+
         private void Reset(object value)
         {
             Loading = true;
@@ -109,16 +114,8 @@ namespace Test_Assignment.View_Model
         private void Filter(object value)
         {
             Loading = true;
-            if (string.IsNullOrEmpty(FilterValue))
-            {
-                Coins = coinsForFilter;
-                return;
-            }
-            else
-            {
-                if (coinsForFilter == null)
-                    coinsForFilter = Coins;
-            }
+            
+           
 
             IEnumerable<CoinFromCoincap> newListCoins;
             switch (parameters)
@@ -152,7 +149,7 @@ namespace Test_Assignment.View_Model
         private async Task<RequestCoin<CoinFromCoincap>?> GetCoins()
         {
             Loading = true;
-            N = (string.IsNullOrEmpty(n)) ? "0" : N;
+            
             if (int.Parse(N) > 2000)
             {
                 MessageBox.Show($"Enter number less 2001");
@@ -173,6 +170,5 @@ namespace Test_Assignment.View_Model
 
 
         }
-
     }
 }

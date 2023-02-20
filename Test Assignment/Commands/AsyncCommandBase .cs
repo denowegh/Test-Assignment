@@ -10,7 +10,7 @@ namespace Test_Assignment.Commands
     public abstract class AsyncCommandBase : IAsyncCommand
     {
         public abstract bool CanExecute(object parameter);
-        public abstract Task ExecuteAsync(object parameter);
+        public abstract Task ExecuteAsync(object parameter=null);
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }

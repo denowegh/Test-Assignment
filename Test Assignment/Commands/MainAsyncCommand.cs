@@ -9,18 +9,28 @@ namespace Test_Assignment.Commands
     public class MainAsyncCommand : AsyncCommandBase
     {
         private readonly Func<Task> _command;
-
-        public MainAsyncCommand(Func<Task> command)
+        private readonly Func<bool> _canExecute;
+        public MainAsyncCommand(Func<Task> command, Func<bool> canExecute = null)
         {
+            if(canExecute == null)
+            {
+                _canExecute = () => true;
+            }
+            else
+            {
+                _canExecute = canExecute;
+            }
             _command = command;
         }
 
         public override bool CanExecute(object parameter)
         {
-            return true;
+           
+             return _canExecute();
+            
         }
 
-        public override Task ExecuteAsync(object parameter)
+        public override Task ExecuteAsync(object parameter = null)
         {
             return _command();
         }

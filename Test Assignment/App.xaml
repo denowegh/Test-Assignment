@@ -15,6 +15,12 @@
                 <x:Type TypeName="en:Parameters"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+        <ObjectDataProvider x:Key="dataFromEnumTwo" MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="en:ParameterSearch"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
 
@@ -35,8 +41,8 @@
                     </TextBlock>
                     <Button  Height="30" Margin="3,0,3,0" Command="{Binding Request}">Find first N coins</Button>
                     <TextBlock Visibility="{Binding Loading, Converter={StaticResource BoolToVisibilityConverter}}" Text="Load"/>
-                    <TextBox Margin="3,0,3,0" Padding="5,5,5,5" x:Name="Count_coin" PreviewTextInput="TextBox_PreviewTextInput" Text="{Binding N}" Height="30" MinWidth="100"/>
-
+                    <TextBox Margin="3,0,3,0" Padding="5,5,5,5" x:Name="Count_coin" PreviewTextInput="TextBox_PreviewTextInput" 
+                             Text="{Binding N,UpdateSourceTrigger=PropertyChanged}" Height="30" MinWidth="100"/>
                     <Separator Margin="3,0,3,0">
                         <Separator.LayoutTransform>
                             <RotateTransform Angle="90" />
@@ -47,13 +53,12 @@
                             <LineBreak/> list by parametr:
                     </TextBlock>
                     <TextBox Margin="3,0,3,0"   Padding="5,5,5,5" x:Name="Filter"
-                                 Text="{Binding FilterValue}" Height="30" MinWidth="100">
+                                 Text="{Binding FilterValue,UpdateSourceTrigger=PropertyChanged}" Height="30" MinWidth="100">
 
                     </TextBox>
                     <Button Height="30" Margin="3,0,3,0" Command="{Binding FilterCommand}">
                         Search
                     </Button>
-
                     <ComboBox ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedValue="{Binding Parameters}"/>
                     <Button Height="30" Margin="3,0,3,0" Command="{Binding ResetCoinsFromCoinsForFilter}">
                         Reset
@@ -83,7 +88,7 @@
                                 <ScrollViewer Height="350" CanContentScroll="True">
                                     <StackPanel Orientation="Vertical" Background="DarkGray" >
 
-                                        <StackPanel Orientation="Vertical"  Margin="2,2,2,2">
+                                        <StackPanel Orientation="Vertical"  Margin="2">
 
                                             <Label FontSize="14">Name:</Label>
                                             <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Name}"/>
@@ -93,7 +98,7 @@
                                             </TextBlock>
                                         </StackPanel>
                                         <Line Stretch="Fill" Stroke="Black" X2="2"/>
-                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+                                        <StackPanel Orientation="Vertical" Margin="2">
 
                                             <Label FontSize="14">Id:</Label>
                                             <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Id}"/>
@@ -103,7 +108,7 @@
                                             </TextBlock>
                                         </StackPanel>
                                         <Line Stretch="Fill" Stroke="Black" X2="2"/>
-                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+                                        <StackPanel Orientation="Vertical" Margin="2">
 
                                             <Label FontSize="14">Symbol:</Label>
                                             <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Symbol}"/>
@@ -114,7 +119,7 @@
                                             </TextBlock>
                                         </StackPanel>
                                         <Line Stretch="Fill" Stroke="Black" X2="2"/>
-                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+                                        <StackPanel Orientation="Vertical" Margin="2">
 
                                             <Label FontSize="14">Rank:</Label>
                                             <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Rank}"/>
@@ -126,7 +131,7 @@
                                             </TextBlock>
                                         </StackPanel>
                                         <Line Stretch="Fill" Stroke="Black" X2="2"/>
-                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+                                        <StackPanel Orientation="Vertical" Margin="2">
 
                                             <Label FontSize="14">Supply:</Label>
                                             <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Supply}"/>
@@ -136,7 +141,7 @@
                                             </TextBlock>
                                         </StackPanel>
                                         <Line Stretch="Fill" Stroke="Black" X2="2"/>
-                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+                                        <StackPanel Orientation="Vertical" Margin="2">
 
                                             <Label FontSize="14">Max supply:</Label>
                                             <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding MaxSupply}"/>
@@ -146,7 +151,7 @@
                                             </TextBlock>
                                         </StackPanel>
                                         <Line Stretch="Fill" Stroke="Black" X2="2"/>
-                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+                                        <StackPanel Orientation="Vertical" Margin="2">
 
                                             <Label FontSize="14">Marketcap usd:</Label>
                                             <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding MarketCapUsd}"/>
@@ -156,7 +161,7 @@
                                             </TextBlock>
                                         </StackPanel>
                                         <Line Stretch="Fill" Stroke="Black" X2="2"/>
-                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+                                        <StackPanel Orientation="Vertical" Margin="2">
 
                                             <Label FontSize="14">Volume usd 24Hr:</Label>
                                             <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding VolumeUsd24Hr}"/>
@@ -167,7 +172,7 @@
                                             </TextBlock>
                                         </StackPanel>
                                         <Line Stretch="Fill" Stroke="Black" X2="2"/>
-                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+                                        <StackPanel Orientation="Vertical" Margin="2">
 
                                             <Label FontSize="14">Price usd:</Label>
                                             <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding PriceUsd}"/>
@@ -178,7 +183,7 @@
                                             </TextBlock>
                                         </StackPanel>
                                         <Line Stretch="Fill" Stroke="Black" X2="2"/>
-                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+                                        <StackPanel Orientation="Vertical" Margin="2">
 
                                             <Label FontSize="14">Change percent 24Hr:</Label>
                                             <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding changePercent24Hr}"/>
@@ -189,7 +194,7 @@
                                             </TextBlock>
                                         </StackPanel>
                                         <Line Stretch="Fill" Stroke="Black" X2="2"/>
-                                        <StackPanel Orientation="Vertical" Margin="2,2,2,2">
+                                        <StackPanel Orientation="Vertical" Margin="2">
 
                                             <Label FontSize="14">Vwap 24Hr:</Label>
                                             <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Vwap24Hr}" />
@@ -208,8 +213,281 @@
                 </Grid>
             </Grid>
         </DataTemplate>
+        
+        <Style x:Key="TextBlocReadOnly" TargetType="TextBox">
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="BorderThickness" Value="0"/>
+
+        </Style>
+
+        <DataTemplate x:Key="MoreInforlation">
+            <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="27"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Height="27" Orientation="Horizontal">
+                        <TextBlock Visibility="{Binding Loading, Converter={StaticResource BoolToVisibilityConverter}}" Text="Load"/>
+                        <TextBox MinWidth="150" Text="{Binding SearchValue,UpdateSourceTrigger=PropertyChanged}"  Margin="2"/>
+                        <Button Margin="0,0,5,0" Height="25" Command="{Binding RequestlCoins,IsAsync=True}" MinWidth="50">
+                            Search
+                        </Button>
+                        <TextBlock Padding="3" Margin="0,0,5,0">
+                                    Search by:
+                        </TextBlock>
+                        <ComboBox  ItemsSource="{Binding Source={StaticResource dataFromEnumTwo}}" SelectedValue="{Binding ParametrSearch}"/>
+                        <StackPanel Visibility="{Binding  VisibilitiPage, Converter={StaticResource BoolToVisibilityConverter}}" Orientation="Horizontal">
+
+                            <TextBlock Padding="3" Margin="0,0,5,0">Genesis date:</TextBlock>
+                            <TextBlock Padding="3" Text="{Binding Coin.Genesis_date}"/>
+                            <TextBlock Padding="3" Margin="0,0,5,0">Last updated date:</TextBlock>
+                            <TextBlock Padding="3" Text="{Binding Coin.Last_updated}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Grid  Grid.Row="1"  Visibility="{Binding  VisibilitiPage, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="200"/>
+                            <RowDefinition Height="300"/>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" VerticalAlignment="Center" Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="500"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <Image  Stretch="Fill" StretchDirection="DownOnly" Source="{Binding Coin.Image.Small}"/>
+                                <StackPanel Orientation="Vertical" Margin="5" >
+                                    <TextBlock  FontSize="20" Text="Name: "/>
+                                    <TextBox Style="{StaticResource TextBlocReadOnly}" FontSize="20" Text="{Binding Coin.Name}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Margin="5,5,10,5">
+                                    <TextBlock  FontSize="20" Text="Id: "/>
+                                    <TextBox Style="{StaticResource TextBlocReadOnly}" FontSize="20" Text="{Binding Coin.Id}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Margin="5,5,10,5">
+                                    <TextBlock  FontSize="20" Text="Symbol: "/>
+                                    <TextBox Style="{StaticResource TextBlocReadOnly}" FontSize="20" Text="{Binding Coin.Symbol}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Margin="5,5,10,5">
+                                    <TextBlock  FontSize="20" Text="Market cap rank: "/>
+                                    <TextBox Style="{StaticResource TextBlocReadOnly}" FontSize="20" Text="{Binding Coin.Market_cap_rank}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <Grid Grid.Column="1" VerticalAlignment="Center" Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock FontSize="20" Grid.Row="0">
+                                                Links:
+                                </TextBlock>
+
+                                <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+                                    <StackPanel Margin="50,0,0,0" HorizontalAlignment="Stretch" Orientation="Horizontal" >
+
+                                        <TextBlock Margin="0,0,1,0">
+                                                    Home pages:
+                                        </TextBlock>
+                                        <ListBox  Width="200" ItemsSource="{Binding Coin.Links.Homepage}" Margin="0,0,7,0">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBox Style="{StaticResource TextBlocReadOnly}" Text="{Binding AbsoluteUri,Mode=OneWay}" Background="Transparent" BorderThickness="0" />
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                        <TextBlock Margin="0,0,1,0">
+                                                    Blockchain site:
+                                        </TextBlock>
+                                        <ListBox  Width="200" ItemsSource="{Binding Coin.Links.Blockchain_site}" Margin="0,0,7,0">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBox Style="{StaticResource TextBlocReadOnly}" Text="{Binding AbsoluteUri,Mode=OneWay}" Background="Transparent" BorderThickness="0" />
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                        <TextBlock Margin="0,0,1,0">
+                                                    Official forum url:
+                                        </TextBlock>
+                                        <ListBox  Width="200" ItemsSource="{Binding Coin.Links.Official_forum_url}" Margin="0,0,7,0">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBox Style="{StaticResource TextBlocReadOnly}" Text="{Binding AbsoluteUri,Mode=OneWay}" Background="Transparent" BorderThickness="0" />
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="0,0,5,0">Twitter screen name:</TextBlock>
+                                                <TextBox Style="{StaticResource TextBlocReadOnly}" Text="{Binding Coin.Links.Twitter_screen_name}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="0,0,5,0">Facebook username:</TextBlock>
+                                                <TextBox Style="{StaticResource TextBlocReadOnly}" Text="{Binding Coin.Links.Facebook_username}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Margin="0,0,5,0">Subreddit url:</TextBlock>
+                                                <TextBox Style="{StaticResource TextBlocReadOnly}" Text="{Binding Coin.Links.Subreddit_url}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </Grid>
 
 
+
+
+                        <Grid Grid.Row="1" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+
+                            <TextBlock Grid.Row="0" Grid.Column="0">
+                                            Total supply:
+                            </TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Coin.Market_data.Total_supply}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2">
+                                            Max supply:
+                            </TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Coin.Market_data.Max_supply}"/>
+                            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="4">
+                                <TextBlock >
+                                            Circulating supply:
+                                </TextBlock>
+                                <TextBlock  Text="{Binding Coin.Market_data.Circulating_supply}"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0">
+                                            Currensy
+                            </TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Uah"/>
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Usd"/>
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Eur"/>
+
+
+
+                            <TextBlock Grid.Row="1" Grid.Column="1">
+                                            Current price
+                            </TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Coin.Market_data.Current_price.Uah}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Coin.Market_data.Current_price.Usd}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Coin.Market_data.Current_price.Eur}"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="2">
+                                            High 24h
+                            </TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Coin.Market_data.High_24h.Uah}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Coin.Market_data.High_24h.Usd}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Coin.Market_data.High_24h.Eur}"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="3">
+                                            Low 24h
+                            </TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding Coin.Market_data.Low_24h.Uah}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="3" Text="{Binding Coin.Market_data.Low_24h.Usd}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="3" Text="{Binding Coin.Market_data.Low_24h.Eur}"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="4">
+                                            Price change percentage 24h
+                            </TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="4" Text="{Binding Coin.Market_data.Price_change_percentage_24h_in_currency.Uah}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="4" Text="{Binding Coin.Market_data.Price_change_percentage_24h_in_currency.Usd}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="4" Text="{Binding Coin.Market_data.Price_change_percentage_24h_in_currency.Eur}"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="5">
+                                            Price change percentage 14d
+                            </TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="5" Text="{Binding Coin.Market_data.Price_change_percentage_14d_in_currency.Uah}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="5" Text="{Binding Coin.Market_data.Price_change_percentage_14d_in_currency.Usd}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="5" Text="{Binding Coin.Market_data.Price_change_percentage_14d_in_currency.Eur}"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="6">
+                                            Price change percentage 1y
+                            </TextBlock>
+                            <TextBlock Grid.Row="2" Grid.Column="6" Text="{Binding Coin.Market_data.Price_change_percentage_1y_in_currency.Uah}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="6" Text="{Binding Coin.Market_data.Price_change_percentage_1y_in_currency.Usd}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="6" Text="{Binding Coin.Market_data.Price_change_percentage_1y_in_currency.Eur}"/>
+                        </Grid>
+                        <StackPanel Orientation="Vertical" Grid.Row="3">
+                            <TextBlock FontSize="20">Tickers:</TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Command="{Binding PageMinus,Delay=1000}">
+                                    Page Minus
+                                </Button>
+                                <TextBox MinWidth="75" PreviewTextInput="TextBox_PreviewTextInput" 
+                                                     Text="{Binding PageTickers,UpdateSourceTrigger=PropertyChanged,Delay=1000}"/>
+                                <Button Command="{Binding PagePlus,Delay=1000}">
+                                    Page Plus
+                                </Button>
+
+                            </StackPanel>
+                            <DataGrid  Background="white" Height="1000" x:Name="TirstTenCoins" IsReadOnly="True" 
+                                              BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+		                                      CanUserAddRows="False"
+                                              CanUserDeleteRows="False" CanUserResizeColumns="True" RowHeaderWidth="0"
+                                              HorizontalAlignment="Stretch" SelectionMode="Single"
+		                                      VerticalAlignment="Stretch" GridLinesVisibility="None"
+                                              AlternatingRowBackground="White"  RowBackground="DarkGray"
+                                              ItemsSource="{Binding Tickers.Tickers,IsAsync=True}" AutoGenerateColumns="False" ColumnWidth="*">
+                                <DataGrid.Columns >
+                                    <DataGridTextColumn Header="Market Identifier" Binding="{Binding  Market.Identifier,IsAsync=True}" />
+                                    <DataGridTextColumn Header="Market Name" Binding="{Binding Market.Name,IsAsync=True}" />
+                                    <DataGridTextColumn Header="Base" Binding="{Binding Base,IsAsync=True}" />
+                                    <DataGridTextColumn Header="Target" Binding="{Binding Target,IsAsync=True}" />
+                                    <DataGridTextColumn Header="Last Price" Binding="{Binding Last,IsAsync=True}"/>
+                                    <DataGridTextColumn Header="Converted last Usd" Binding="{Binding Converted_last.Usd,IsAsync=True}" />
+                                    <DataGridTextColumn Header="Timestamp" Binding="{Binding Timestamp,IsAsync=True}" />
+                                </DataGrid.Columns>
+                                <DataGrid.RowDetailsTemplate>
+                                    <DataTemplate >
+                                        <StackPanel Orientation="Vertical" Background="DarkGray" >
+                                            <StackPanel Orientation="Vertical" Margin="2">
+                                                <Label FontSize="14">Bace coin:</Label>
+                                                <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Coin_id}"/>
+                                            </StackPanel>
+                                            <Line Stretch="Fill" Stroke="Black" X2="2"/>
+                                            <StackPanel Orientation="Vertical" Margin="2">
+                                                <Label FontSize="14">Target coin Id:</Label>
+                                                <TextBlock Margin="10,0,0,0" FontSize="14" Text="{Binding Target_coin_id}"/>
+                                            </StackPanel>
+                                            <Line Stretch="Fill" Stroke="Black" X2="2"/>
+                                            <StackPanel Orientation="Vertical" Margin="2">
+                                                <Label FontSize="14">Link:</Label>
+                                                <TextBox Style="{StaticResource ResourceKey=TextBlocReadOnly}" Background="{Binding}"
+                                                                           Margin="10,0,0,0" FontSize="14" Text="{Binding Trade_url}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGrid.RowDetailsTemplate>
+                            </DataGrid>
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+
+            </ScrollViewer>
+        </DataTemplate>
 
 
 
