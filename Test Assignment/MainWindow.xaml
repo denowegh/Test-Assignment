@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Test_Assignment" 
         xmlns:view_model="clr-namespace:Test_Assignment.View_Model"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:en="clr-namespace:Test_Assignment.View_Model"
+        xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="900">
 
@@ -14,10 +14,16 @@
         <view_model:MainViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+        <ObjectDataProvider x:Key="dataFromEnumCurrency" MethodName="GetValues"
                         ObjectType="{x:Type sys:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="en:ParameterSearch"/>
+                <x:Type TypeName="en:Currency"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="dataFromEnumDaysCount" MethodName="GetValues"
+                        ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="en:DaysCount"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverterTwo" />
@@ -39,6 +45,7 @@
                             <StackPanel Grid.Row="0" Height="27" Orientation="Horizontal">
                                 <TextBlock Visibility="{Binding Loading, Converter={StaticResource BoolToVisibilityConverter}}" Text="Load"/>
                                 <TextBox MinWidth="150" Text="{Binding SearchValue,UpdateSourceTrigger=PropertyChanged}"  Margin="2"/>
+                                
                                 <Button Margin="0,0,5,0" Height="25" Command="{Binding RequestlCoins,IsAsync=True}" MinWidth="50">
                                     Search
                                 </Button>
@@ -46,8 +53,25 @@
                                     Search by:
                                 </TextBlock>
                                 <ComboBox  ItemsSource="{Binding Source={StaticResource dataFromEnumTwo}}" SelectedValue="{Binding ParametrSearch}"/>
-                                
                             </StackPanel>
+                            <Grid Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="27"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                    <TextBlock Text="Data up to number of days ago "/>
+                                    <ComboBox  ItemsSource="{Binding Source={StaticResource dataFromEnumDaysCount}}" SelectedValue="{Binding DaysOHLC}"/>
+                                    <TextBlock Text="The target currency of market data"/>
+                                    <ComboBox  ItemsSource="{Binding Source={StaticResource dataFromEnumCurrency}}" SelectedValue="{Binding CurrencyGrafic}"/>
+                                </StackPanel>
+
+                                <lvc:CartesianChart Grid.Row="1"  Series="{Binding Series}" 
+                                                    
+                                                    XAxes="{Binding XAxis}" Title="{Binding Title}">
+
+                                </lvc:CartesianChart>
+                            </Grid>
                         </Grid>
                     </DataTemplate>
                 </TabItem.ContentTemplate>

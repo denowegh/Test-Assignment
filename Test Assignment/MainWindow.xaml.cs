@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 using Test_Assignment.Model;
 using System.Data;
 using Test_Assignment.View_Model;
+using Test_Assignment.Model.Coin_From_Coingecko;
 
 namespace Test_Assignment
 {
@@ -35,9 +36,14 @@ namespace Test_Assignment
             
         }
 
-        
 
-        
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            var regex = new Regex("[^0-9]+");
+            
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
 
 
 

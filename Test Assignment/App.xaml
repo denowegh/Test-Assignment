@@ -65,7 +65,7 @@
                     </Button>
                 </StackPanel>
                 <Grid Grid.Row="1" Grid.Column="0">
-                    <DataGrid  Background="white" VerticalAlignment="Top" x:Name="TirstTenCoins" IsReadOnly="True" 
+                    <DataGrid Background="white" VerticalAlignment="Top" x:Name="TirstTenCoins" IsReadOnly="True" 
                                 BorderThickness="0"
 		                      ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserAddRows="False"
                               CanUserDeleteRows="False" CanUserResizeColumns="True" RowHeaderWidth="0"

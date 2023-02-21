@@ -10,6 +10,7 @@ namespace Test_Assignment.View_Model
     {
         public TableViewModel TableViewModel { get; set; } = new TableViewModel();
         public MoreInformationViewModel MoreInformationViewModel { get; set; } = new MoreInformationViewModel();
+        
 
     }
 }

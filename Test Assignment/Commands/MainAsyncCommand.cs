@@ -9,8 +9,8 @@ namespace Test_Assignment.Commands
     public class MainAsyncCommand : AsyncCommandBase
     {
         private readonly Func<Task> _command;
-        private readonly Func<bool> _canExecute;
-        public MainAsyncCommand(Func<Task> command, Func<bool> canExecute = null)
+        private readonly Func<bool>? _canExecute;
+        public MainAsyncCommand(Func<Task> command, Func<bool>? canExecute = null)
         {
             if(canExecute == null)
             {
@@ -25,8 +25,9 @@ namespace Test_Assignment.Commands
 
         public override bool CanExecute(object parameter)
         {
-           
+           if(parameter == null) 
              return _canExecute();
+            return true;
             
         }
 
