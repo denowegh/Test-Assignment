@@ -3,7 +3,7 @@
 It is test a program (at WPF and MVVM) that display information related to cryptocurrencies. 
 
 Program have 3 pages (Main, More information about coin, Chart)
-
+In program i usege 2 librarys (Live chart, Newtonsoft.JSON)
 Main page:
 
 ![Скриншот 21-02-2023 03 07 17](https://user-images.githubusercontent.com/108757829/220228502-460d989b-0dfd-4db5-947e-7bfaafb825f3.png)
