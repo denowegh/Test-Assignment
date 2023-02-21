@@ -28,16 +28,17 @@
         </ObjectDataProvider>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverterTwo" />
     </Window.Resources>
-    <Grid>
+    <Grid >
 
-        <TabControl x:Name="Tabs" Grid.Row="1" Grid.Column="0">
-            <TabItem x:Name="Tab" Header="Main" Content="{Binding Path=TableViewModel}" ContentTemplate="{DynamicResource ResourceKey=Main}"/>
-            <TabItem x:Name="Tab2" Header="More information about coin" Content="{Binding Path=MoreInformationViewModel}"
+        <TabControl  x:Name="Tabs" Grid.Row="1" Grid.Column="0">
+            <TabItem x:Name="Tab" Header="Main" Content="{Binding Path=TableViewModel}" Background="{Binding}"
+                     Foreground="{Binding}" ContentTemplate="{DynamicResource ResourceKey=Main}"/>
+            <TabItem x:Name="Tab2"   Header="More information about coin" Content="{Binding Path=MoreInformationViewModel}"
                      ContentTemplate="{DynamicResource ResourceKey=MoreInforlation}"/>
-            <TabItem x:Name="Tab3" Header="Chart" Content="{Binding Path=MoreInformationViewModel}">
+            <TabItem x:Name="Tab3"   Header="Chart" Content="{Binding Path=MoreInformationViewModel}">
                 <TabItem.ContentTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid > 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="27"/>
                                 <RowDefinition Height="*"/>
@@ -67,7 +68,6 @@
                                 </StackPanel>
 
                                 <lvc:CartesianChart Grid.Row="1"  Series="{Binding Series}" 
-                                                    
                                                     XAxes="{Binding XAxis}" Title="{Binding Title}">
 
                                 </lvc:CartesianChart>

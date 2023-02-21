@@ -346,7 +346,7 @@
 
                         <Grid Grid.Row="1" >
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="90" />
                                 <ColumnDefinition Width="90"/>
                                 <ColumnDefinition Width="90"/>
                                 <ColumnDefinition Width="90"/>
@@ -390,44 +390,44 @@
                             <TextBlock Grid.Row="1" Grid.Column="1">
                                             Current price
                             </TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Coin.Market_data.Current_price.Uah}"/>
-                            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Coin.Market_data.Current_price.Usd}"/>
-                            <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Coin.Market_data.Current_price.Eur}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" FontSize="14" Text="{Binding Coin.Market_data.Current_price.Uah}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" FontSize="14" Text="{Binding Coin.Market_data.Current_price.Usd}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1" FontSize="14" Text="{Binding Coin.Market_data.Current_price.Eur}"/>
 
                             <TextBlock Grid.Row="1" Grid.Column="2">
                                             High 24h
                             </TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Coin.Market_data.High_24h.Uah}"/>
-                            <TextBlock Grid.Row="3" Grid.Column="2" Text="{Binding Coin.Market_data.High_24h.Usd}"/>
-                            <TextBlock Grid.Row="4" Grid.Column="2" Text="{Binding Coin.Market_data.High_24h.Eur}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" FontSize="14" Text="{Binding Coin.Market_data.High_24h.Uah}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" FontSize="14" Text="{Binding Coin.Market_data.High_24h.Usd}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="2" FontSize="14" Text="{Binding Coin.Market_data.High_24h.Eur}"/>
 
                             <TextBlock Grid.Row="1" Grid.Column="3">
                                             Low 24h
                             </TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding Coin.Market_data.Low_24h.Uah}"/>
-                            <TextBlock Grid.Row="3" Grid.Column="3" Text="{Binding Coin.Market_data.Low_24h.Usd}"/>
-                            <TextBlock Grid.Row="4" Grid.Column="3" Text="{Binding Coin.Market_data.Low_24h.Eur}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="3" FontSize="14" Text="{Binding Coin.Market_data.Low_24h.Uah}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="3" FontSize="14" Text="{Binding Coin.Market_data.Low_24h.Usd}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="3" FontSize="14" Text="{Binding Coin.Market_data.Low_24h.Eur}"/>
 
                             <TextBlock Grid.Row="1" Grid.Column="4">
                                             Price change percentage 24h
                             </TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="4" Text="{Binding Coin.Market_data.Price_change_percentage_24h_in_currency.Uah}"/>
-                            <TextBlock Grid.Row="3" Grid.Column="4" Text="{Binding Coin.Market_data.Price_change_percentage_24h_in_currency.Usd}"/>
-                            <TextBlock Grid.Row="4" Grid.Column="4" Text="{Binding Coin.Market_data.Price_change_percentage_24h_in_currency.Eur}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="4" FontSize="14" Text="{Binding Coin.Market_data.Price_change_percentage_24h_in_currency.Uah}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="4" FontSize="14" Text="{Binding Coin.Market_data.Price_change_percentage_24h_in_currency.Usd}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="4" FontSize="14" Text="{Binding Coin.Market_data.Price_change_percentage_24h_in_currency.Eur}"/>
 
                             <TextBlock Grid.Row="1" Grid.Column="5">
                                             Price change percentage 14d
                             </TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="5" Text="{Binding Coin.Market_data.Price_change_percentage_14d_in_currency.Uah}"/>
-                            <TextBlock Grid.Row="3" Grid.Column="5" Text="{Binding Coin.Market_data.Price_change_percentage_14d_in_currency.Usd}"/>
-                            <TextBlock Grid.Row="4" Grid.Column="5" Text="{Binding Coin.Market_data.Price_change_percentage_14d_in_currency.Eur}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="5" FontSize="14" Text="{Binding Coin.Market_data.Price_change_percentage_14d_in_currency.Uah}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="5" FontSize="14" Text="{Binding Coin.Market_data.Price_change_percentage_14d_in_currency.Usd}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="5" FontSize="14" Text="{Binding Coin.Market_data.Price_change_percentage_14d_in_currency.Eur}"/>
 
                             <TextBlock Grid.Row="1" Grid.Column="6">
                                             Price change percentage 1y
                             </TextBlock>
-                            <TextBlock Grid.Row="2" Grid.Column="6" Text="{Binding Coin.Market_data.Price_change_percentage_1y_in_currency.Uah}"/>
-                            <TextBlock Grid.Row="3" Grid.Column="6" Text="{Binding Coin.Market_data.Price_change_percentage_1y_in_currency.Usd}"/>
-                            <TextBlock Grid.Row="4" Grid.Column="6" Text="{Binding Coin.Market_data.Price_change_percentage_1y_in_currency.Eur}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="6" FontSize="14" Text="{Binding Coin.Market_data.Price_change_percentage_1y_in_currency.Uah}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="6" FontSize="14" Text="{Binding Coin.Market_data.Price_change_percentage_1y_in_currency.Usd}"/>
+                            <TextBlock Grid.Row="4" Grid.Column="6" FontSize="14" Text="{Binding Coin.Market_data.Price_change_percentage_1y_in_currency.Eur}"/>
                         </Grid>
                         <StackPanel Orientation="Vertical" Grid.Row="3">
                             <TextBlock FontSize="20">Tickers:</TextBlock>
